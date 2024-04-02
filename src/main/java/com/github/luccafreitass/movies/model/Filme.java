@@ -20,6 +20,7 @@ public class Filme {
 	private String anoLancamento;
 	private String duracao;
 	private String genero;
+	private String avaliacao;
 
 	public Filme() {
 	}
@@ -29,6 +30,7 @@ public class Filme {
 		this.anoLancamento = dados.anoLancamento();
 		this.duracao = dados.duracao();
 		this.genero = dados.genero();
+		this.avaliacao = dados.avaliacao();
 	}
 
 	public long getId() {
@@ -69,6 +71,14 @@ public class Filme {
 
 	public void setGenero(String genero) {
 		this.genero = genero;
+	}
+
+	public String getAvaliacao() {
+		return avaliacao;
+	}
+
+	public void setAvaliacao(String avaliacao) {
+		this.avaliacao = avaliacao;
 	}
 
 	@Override

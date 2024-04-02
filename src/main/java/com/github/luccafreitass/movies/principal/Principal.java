@@ -21,7 +21,6 @@ public class Principal {
 	private ConsumoApi consumo = new ConsumoApi();
 	private ConverteDados conversor = new ConverteDados();
 
-
 	private Scanner in = new Scanner(System.in);
 
 	private final FilmeRepository repositorio;
@@ -44,7 +43,7 @@ public class Principal {
 					""";
 			System.out.println(menu);
 			escolha = in.nextInt();
-			
+			in.nextLine();
 
 			switch (escolha) {
 			case 1:
@@ -54,12 +53,10 @@ public class Principal {
 				listarFilmes();
 				break;
 			case 3:
-				// Implemente o caso 3 se necessário
-				break;
-			case 4:
-				// Implemente o caso 4 se necessário
+
 				break;
 			default:
+				System.out.println("Opcao invalida");
 				break;
 			}
 		}
