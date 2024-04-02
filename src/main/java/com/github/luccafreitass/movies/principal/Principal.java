@@ -53,13 +53,18 @@ public class Principal {
 				listarFilmes();
 				break;
 			case 3:
-
+				listarTop5();
 				break;
 			default:
 				System.out.println("Opcao invalida");
 				break;
 			}
 		}
+	}
+
+	private void listarTop5() {
+		filmes = repositorio.findTop5ByOrderByAvaliacaoDesc();
+		filmes.forEach(System.out::println);
 	}
 
 	private void listarFilmes() {
@@ -77,9 +82,9 @@ public class Principal {
 
 	private void buscarFilme() {
 		DadosFilme dados = getDadosFilme();
+		Filme filme = new Filme(dados);
 
-		if (dados != null) {
-			Filme filme = new Filme(dados);
+		if (dados != null && filme.getTitulo() != null) {
 			System.out.println("Título do filme: " + filme.getTitulo());
 			System.out.println(dados);
 			repositorio.save(filme);
