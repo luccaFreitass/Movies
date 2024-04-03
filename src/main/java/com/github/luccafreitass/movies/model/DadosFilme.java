@@ -8,6 +8,7 @@ public record DadosFilme (@JsonAlias("Title") String titulo,
 						  @JsonAlias("Year") String anoLancamento,
 						  @JsonAlias("Runtime") String duracao,
 						  @JsonAlias("Genre") String genero,
-						  @JsonAlias("imdbRating") String avaliacao){
+						  @JsonAlias("imdbRating") String avaliacao,
+						  @JsonAlias("Poster") String poster){
 	
 }
