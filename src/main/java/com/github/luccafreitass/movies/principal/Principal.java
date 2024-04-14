@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import org.springframework.stereotype.Component;
 
+import com.github.luccafreitass.movies.DTO.FilmeResponseDto;
 import com.github.luccafreitass.movies.model.DadosFilme;
 import com.github.luccafreitass.movies.model.Filme;
 import com.github.luccafreitass.movies.repository.FilmeRepository;
@@ -30,7 +31,7 @@ public class Principal {
 		this.repositorio = repositorio;
 	}
 
-	public void exibeMenu() {
+	/*public void exibeMenu() {
 		int escolha = -1;
 		while (escolha != 0) {
 			String menu = """
@@ -60,7 +61,7 @@ public class Principal {
 				break;
 			}
 		}
-	}
+	}*/
 
 	private void listarTop5() {
 		filmes = repositorio.findTop5ByOrderByAvaliacaoDesc();
@@ -72,25 +73,21 @@ public class Principal {
 		filmes.stream().forEach(System.out::println);
 	}
 
-	private DadosFilme getDadosFilme() {
-		System.out.println("Digite o nome do filme para busca");
-		var nomeSerie = in.nextLine();
+	public DadosFilme getDadosFilme(String nomeSerie) {
+		//String nomeSerie = "Rick and Morty";
+		
 		var json = consumo.obterDados(ENDERECO + nomeSerie.replace(" ", "+") + API_KEY);
 		DadosFilme dados = conversor.obterDados(json, DadosFilme.class);
 		return dados;
 	}
 
-	private void buscarFilme() {
-		DadosFilme dados = getDadosFilme();
-		Filme filme = new Filme(dados);
-
-		if (dados != null && filme.getTitulo() != null) {
-			System.out.println("Título do filme: " + filme.getTitulo());
-			System.out.println(dados);
-			repositorio.save(filme);
-		} else {
-			System.out.println("Não foi possível obter os dados do filme.");
-		}
+	public FilmeResponseDto buscarFilme(String nomeSerie) {
+		DadosFilme dados = getDadosFilme(nomeSerie);
+		FilmeResponseDto dto = new FilmeResponseDto(dados);	
+		Filme filme = new Filme(dto);
+		repositorio.save(filme);
+		return dto;
 	}
+	
 
 }

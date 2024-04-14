@@ -1,5 +1,7 @@
 package com.github.luccafreitass.movies.model;
 
+import com.github.luccafreitass.movies.DTO.FilmeResponseDto;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,13 +9,15 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import lombok.*;
+
 @Entity
 @Table(name = "Filmes")
 public class Filme {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
 	@Column(unique = true)
 	private String titulo;
@@ -23,23 +27,24 @@ public class Filme {
 	private String avaliacao;
 	private String poster;
 
+	public Filme(FilmeResponseDto filmeResponseDto) {
+		this.titulo = filmeResponseDto.getTitulo();
+		this.anoLancamento = filmeResponseDto.getAnoLancamento();
+		this.duracao = filmeResponseDto.getDuracao();
+		this.genero = filmeResponseDto.getGenero();
+		this.avaliacao = filmeResponseDto.getAvaliacao();
+		this.poster = filmeResponseDto.getPoster();
+	}
+
 	public Filme() {
+		
 	}
 
-	public Filme(DadosFilme dados) {
-		this.titulo = dados.titulo();
-		this.anoLancamento = dados.anoLancamento();
-		this.duracao = dados.duracao();
-		this.genero = dados.genero();
-		this.avaliacao = dados.avaliacao();
-		this.poster = dados.poster();
-	}
-
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -90,11 +95,4 @@ public class Filme {
 	public void setPoster(String poster) {
 		this.poster = poster;
 	}
-
-	@Override
-	public String toString() {
-		return "Titulo: " + titulo + "\nAno De Lancamento: " + anoLancamento + "\nDuracao: " + duracao
-				+ "\nGenero: " + genero + "\nAvaliacao: " + avaliacao + "\n\n";
-	}
-
 }
