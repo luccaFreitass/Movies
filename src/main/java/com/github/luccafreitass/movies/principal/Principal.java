@@ -2,6 +2,7 @@ package com.github.luccafreitass.movies.principal;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 import org.springframework.stereotype.Component;
@@ -49,11 +50,18 @@ public class Principal {
 
 	public FilmeResponseDto buscarFilme(String nomeSerie) {
 		DadosFilme dados = getDadosFilme(nomeSerie);
-		FilmeResponseDto dto = new FilmeResponseDto(dados);	
+		FilmeResponseDto dto = new FilmeResponseDto(dados);
 		Filme filme = new Filme(dto);
-		repositorio.save(filme);
+
+		Optional<Filme> filmeExistente = repositorio.findByTitulo(filme.getTitulo());
+		if (filmeExistente.isPresent()) {
+			Filme filmeAtualizado = filmeExistente.get();
+			filmeAtualizado.setAvaliacao(filme.getAvaliacao());
+			filmeAtualizado.setTitulo(filme.getTitulo());
+			repositorio.save(filmeAtualizado);
+		} else {
+			repositorio.save(filme);
+		}
 		return dto;
 	}
-	
-
 }

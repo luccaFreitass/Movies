@@ -1,16 +1,14 @@
 package com.github.luccafreitass.movies.service;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.github.luccafreitass.movies.DTO.FilmeResponseDto;
 import com.github.luccafreitass.movies.model.Filme;
 import com.github.luccafreitass.movies.principal.Principal;
 import com.github.luccafreitass.movies.repository.FilmeRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -20,9 +18,8 @@ public class FilmeService {
 	private final Principal principal;
 	private final FilmeRepository repositorio;
 
-	public List<FilmeResponseDto> obterTodosFilmes() {
-
-		return converteDados(repositorio.findAll());
+	public List<Filme> obterTodosFilmes() {
+		return repositorio.findAll();
 	}
 
 	private List<FilmeResponseDto> converteDados(List<Filme> filmes) {
@@ -39,5 +36,8 @@ public class FilmeService {
     	return filme;
 	}
 
+	public FilmeResponseDto salvarFilme(String nome) {
+		return principal.buscarFilme(nome);
+	}
 
 }
