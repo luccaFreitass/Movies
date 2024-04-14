@@ -2,6 +2,7 @@ package com.github.luccafreitass.movies.controller;
 
 import java.util.List;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,10 +16,10 @@ import com.github.luccafreitass.movies.service.FilmeService;
 
 @RestController
 @RequestMapping("/filmes")
+@RequiredArgsConstructor
 public class FilmeController {
 
-	@Autowired
-	private FilmeService service;
+	private final FilmeService service;
 
 	@GetMapping
 	public List<FilmeResponseDto> obterFilmes() {
@@ -29,9 +30,4 @@ public class FilmeController {
 	public FilmeResponseDto obterPorId(@PathVariable Long id){
 		    return service.obterPorId(id);
 	}
-	
-	//@PostMapping
-	//public FilmeResponseDto salvarFilme(@RequestBody FilmeResponseDto filmeRequestDto) {
-        
-
 }

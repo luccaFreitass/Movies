@@ -31,38 +31,6 @@ public class Principal {
 		this.repositorio = repositorio;
 	}
 
-	/*public void exibeMenu() {
-		int escolha = -1;
-		while (escolha != 0) {
-			String menu = """
-					1 - Buscar filme
-					2 - Listar filmes
-					3 - Top5 Filmes
-
-
-					0 - Sair
-					""";
-			System.out.println(menu);
-			escolha = in.nextInt();
-			in.nextLine();
-
-			switch (escolha) {
-			case 1:
-				buscarFilme();
-				break;
-			case 2:
-				listarFilmes();
-				break;
-			case 3:
-				listarTop5();
-				break;
-			default:
-				System.out.println("Opcao invalida");
-				break;
-			}
-		}
-	}*/
-
 	private void listarTop5() {
 		filmes = repositorio.findTop5ByOrderByAvaliacaoDesc();
 		filmes.forEach(System.out::println);
@@ -74,8 +42,6 @@ public class Principal {
 	}
 
 	public DadosFilme getDadosFilme(String nomeSerie) {
-		//String nomeSerie = "Rick and Morty";
-		
 		var json = consumo.obterDados(ENDERECO + nomeSerie.replace(" ", "+") + API_KEY);
 		DadosFilme dados = conversor.obterDados(json, DadosFilme.class);
 		return dados;

@@ -3,6 +3,7 @@ package com.github.luccafreitass.movies.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,13 +14,11 @@ import com.github.luccafreitass.movies.repository.FilmeRepository;
 
 
 @Service
+@RequiredArgsConstructor
 public class FilmeService {
 
-    @Autowired
-	private Principal principal;
-	
-	@Autowired
-	private FilmeRepository repositorio;
+	private final Principal principal;
+	private final FilmeRepository repositorio;
 
 	public List<FilmeResponseDto> obterTodosFilmes() {
 
@@ -40,8 +39,5 @@ public class FilmeService {
     	return filme;
 	}
 
-	/*public FilmeResponseDto buscarPorNome(String nomeFilme) {
-		String nome = principal.buscarFilme(nomeFilme).getTitulo();
-	}*/
 
 }
