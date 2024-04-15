@@ -5,6 +5,8 @@ import com.github.luccafreitass.movies.DTO.FilmeResponseDto;
 import com.github.luccafreitass.movies.model.Filme;
 import com.github.luccafreitass.movies.service.FilmeService;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,7 +16,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FilmeController {
 
-	private final FilmeService service;
+	@Autowired
+	private FilmeService service;
 
 	@GetMapping
 	public List<Filme> obterFilmes() {
