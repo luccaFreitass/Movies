@@ -5,6 +5,8 @@ import com.github.luccafreitass.movies.model.Filme;
 import com.github.luccafreitass.movies.principal.Principal;
 import com.github.luccafreitass.movies.repository.FilmeRepository;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +17,10 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class FilmeService {
 
-	private final Principal principal;
-	private final FilmeRepository repositorio;
+	@Autowired
+	private Principal principal;
+	@Autowired
+	private FilmeRepository repositorio;
 
 	public List<Filme> obterTodosFilmes() {
 		return repositorio.findAll();
