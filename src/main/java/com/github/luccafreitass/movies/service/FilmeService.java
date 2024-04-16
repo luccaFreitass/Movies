@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
-
 
 @Service
 @RequiredArgsConstructor
@@ -27,17 +27,16 @@ public class FilmeService {
 	}
 
 	private List<FilmeResponseDto> converteDados(List<Filme> filmes) {
-    	   return filmes.stream()
-                 .map(f -> new FilmeResponseDto(f.getTitulo(),f.getAnoLancamento(),f.getDuracao(),f.getGenero(),f.getAvaliacao(),f.getPoster()))
-                 .collect(Collectors.toList());
-}
+		return filmes.stream().map(f -> new FilmeResponseDto(f.getTitulo(), f.getAnoLancamento(), f.getDuracao(),
+				f.getGenero(), f.getAvaliacao(), f.getPoster())).collect(Collectors.toList());
+	}
 
 	public FilmeResponseDto obterPorId(Long id) {
-    	FilmeResponseDto filme = repositorio.findDtoById(id);
-    	if (filme == null) {
-        	throw new RuntimeException("Not found with " + id);
-    	}
-    	return filme;
+		Optional<Filme> optionalFilme = repositorio.findById(id);
+		Filme filme = optionalFilme.orElseThrow(() -> new RuntimeException("Filme not found with ID: " + id));
+
+		return new FilmeResponseDto(filme.getTitulo(), filme.getAnoLancamento(), filme.getDuracao(), filme.getGenero(),
+				filme.getAvaliacao(), filme.getPoster());
 	}
 
 	public FilmeResponseDto salvarFilme(String nome) {
