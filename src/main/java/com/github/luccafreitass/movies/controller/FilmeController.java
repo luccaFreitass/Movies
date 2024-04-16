@@ -14,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/filmes")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class FilmeController {
 
 	@Autowired
@@ -25,8 +26,8 @@ public class FilmeController {
 	}
 
 	@GetMapping("/{id}")
-	public FilmeResponseDto obterPorId(@PathVariable Long id){
-		    return service.obterPorId(id);
+	public FilmeResponseDto obterPorId(@PathVariable Long id) {
+		return service.obterPorId(id);
 	}
 
 	@PostMapping
